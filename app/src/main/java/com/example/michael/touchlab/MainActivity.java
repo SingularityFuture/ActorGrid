@@ -19,18 +19,21 @@ public class MainActivity extends AppCompatActivity {
     public int gridRows;
     public int gridColumns;
     public String[] actors;
+    public int numberOfActors;
     //public int numberOfActors=getResources().getInteger(R.integer.default_actors);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        int numberOfActors=getResources().getInteger(R.integer.default_actors);
+        numberOfActors=getResources().getInteger(R.integer.default_actors); // Set the initial # of actors
+        actors=getResources().getStringArray(R.array.actor_array); // Set the initial actor traits
 
         LinearLayout layout = (LinearLayout)findViewById(R.id.activity_main);
         for (int i = 1; i < layout.getChildCount(); i++) {
             View v = layout.getChildAt(i);
             if (v instanceof EditText && i<=numberOfActors) {
+
                 addActorTextListener((EditText) v);
             }
             else if (v instanceof EditText && i>numberOfActors) {
