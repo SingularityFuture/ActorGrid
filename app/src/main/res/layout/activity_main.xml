@@ -20,42 +20,63 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/input_actors"
+        android:inputType="text"
+        android:maxLines="1"
+        android:imeOptions="actionDone"
         android:text="@string/default_actor1" />
     <EditText
         android:id="@id/actor_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/input_actors"
+        android:inputType="text"
+        android:maxLines="1"
+        android:imeOptions="actionDone"
         android:text="@string/default_actor2" />
     <EditText
         android:id="@id/actor_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/input_actors"
+        android:inputType="text"
+        android:maxLines="1"
+        android:imeOptions="actionDone"
         android:text="@string/default_actor3" />
     <EditText
         android:id="@id/actor_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/input_actors"
+        android:inputType="text"
+        android:maxLines="1"
+        android:imeOptions="actionDone"
         android:text="@string/default_actor4" />
     <EditText
         android:id="@id/actor_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/input_actors"
+        android:inputType="text"
+        android:maxLines="1"
+        android:imeOptions="actionDone"
         android:text="@string/default_actor5" />
     <EditText
         android:id="@id/grid_rows"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/number_of_rows"
+        android:inputType="text"
+        android:maxLines="1"
+        android:imeOptions="actionDone"
         android:text="@integer/default_rows" />
     <EditText
         android:id="@id/grid_columns"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/number_of_columns"
+        android:inputType="text"
+        android:maxLines="1"
+        android:imeOptions="actionDone"
         android:text="@integer/default_columns" />
     <Button
         android:id="@id/run_simulation"
