@@ -19,23 +19,22 @@ public class MainActivity extends AppCompatActivity {
     public int gridRows;
     public int gridColumns;
     public String[] actors;
-    public int numberOfActors=R.integer.default_actors;
+    //public int numberOfActors=getResources().getInteger(R.integer.default_actors);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        int numberOfActors=getResources().getInteger(R.integer.default_actors);
 
         LinearLayout layout = (LinearLayout)findViewById(R.id.activity_main);
-        for (int i = 0; i < layout.getChildCount(); i++) {
+        for (int i = 1; i < layout.getChildCount(); i++) {
             View v = layout.getChildAt(i);
-            if (v instanceof EditText && i<numberOfActors) {
+            if (v instanceof EditText && i<=numberOfActors) {
                 addActorTextListener((EditText) v);
             }
-            else if (v instanceof EditText && i>=numberOfActors) {
-                //addGridTextListener((EditText) v);
+            else if (v instanceof EditText && i>numberOfActors) {
+                addGridRowColumnListener((EditText) v);
             }
         }
         addRunButtonListener();
@@ -51,12 +50,32 @@ public class MainActivity extends AppCompatActivity {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // Test listener with toast.
                 Toast.makeText(MainActivity.this, "Actor information entered", Toast.LENGTH_SHORT).show();
-                InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // Hide keyboard
                 mgr.hideSoftInputFromWindow(actorText.getWindowToken(), 0);
+
                 handled = true;
             }
             return handled;
         }
+        });
+    }
+
+    public void addGridRowColumnListener(final EditText gridText){
+
+        gridText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // Test listener with toast.
+                    Toast.makeText(MainActivity.this, "Grid information entered", Toast.LENGTH_SHORT).show();
+                    InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // Hide keyboard
+                    mgr.hideSoftInputFromWindow(gridText.getWindowToken(), 0);
+
+                    handled = true;
+                }
+                return handled;
+            }
         });
     }
 
