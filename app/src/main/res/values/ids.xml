@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="run_simulation" type="id">run_simulation</item>
+    <item name="actor_1" type="id">actor_1</item>
+    <item name="actor_2" type="id">actor_2</item>
+    <item name="actor_3" type="id">actor_3</item>
+    <item name="actor_4" type="id">actor_4</item>
+    <item name="actor_5" type="id">actor_5</item>
+</resources>
