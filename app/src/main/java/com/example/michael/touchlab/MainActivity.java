@@ -1,10 +1,12 @@
 package com.example.michael.touchlab;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -30,17 +32,13 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < layout.getChildCount(); i++) {
             View v = layout.getChildAt(i);
             if (v instanceof EditText && i<numberOfActors) {
-
                 addActorTextListener((EditText) v);
             }
             else if (v instanceof EditText && i>=numberOfActors) {
-
                 //addGridTextListener((EditText) v);
             }
         }
-
         addRunButtonListener();
-
         //actorText.performClick();
     }
 
@@ -53,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // Test listener with toast.
                 Toast.makeText(MainActivity.this, "Actor information entered", Toast.LENGTH_SHORT).show();
+                InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                mgr.hideSoftInputFromWindow(actorText.getWindowToken(), 0);
                 handled = true;
             }
             return handled;
