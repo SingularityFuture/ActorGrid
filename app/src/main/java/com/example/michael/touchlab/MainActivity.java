@@ -8,6 +8,8 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     private Button runButton;
+    public int gridRows;
+    public int gridColumns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
