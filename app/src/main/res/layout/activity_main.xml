@@ -45,6 +45,18 @@
         android:layout_height="wrap_content"
         android:hint="@string/input_actors"
         android:text="@string/default_actor5" />
+    <EditText
+        android:id="@id/grid_rows"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/number_of_rows"
+        android:text="@integer/default_rows" />
+    <EditText
+        android:id="@id/grid_columns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/number_of_columns"
+        android:text="@integer/default_columns" />
     <Button
         android:id="@id/run_simulation"
         android:layout_width="wrap_content"

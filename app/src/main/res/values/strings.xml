@@ -7,6 +7,8 @@
     <string name="default_actor3">S 1 1</string>
     <string name="default_actor4">R</string>
     <string name="default_actor5">L 3 3 2</string>
+    <string name="number_of_rows"># of rows</string>
+    <string name="number_of_columns"># of columns</string>
     <string name="run_simulation">Run Simulation</string>
     <string name="output_of_simulation">Output of Simulation</string>
 </resources>
