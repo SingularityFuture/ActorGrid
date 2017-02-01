@@ -2,6 +2,8 @@ package MoveActors;
 
 /**
  * Created by Michael on 1/31/2017.
+ *
+ * Moves an actor one cell in the direction specified.
  */
 
 public class Line {
