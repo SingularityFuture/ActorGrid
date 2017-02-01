@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button runButton; // Button that runs the simulation
     public int gridRows; // Number of rows on grid
     public int gridColumns; // Number of columns on grid
+    public int frames; // Number of frames run in simulation
     public List<String> actors = new ArrayList<String>(); // Create list for all actors' traits
     public int numberOfActors; // Number of actors
 
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         numberOfActors=getResources().getInteger(R.integer.default_actors); // Set the initial # of actors
+        gridRows=getResources().getInteger(R.integer.default_rows); // Set the initial # of rows in the grid
+        gridColumns=getResources().getInteger(R.integer.default_columns); // Set the initial # of columns in the grid
+        frames=getResources().getInteger(R.integer.default_frames); // Set the initial # of frames in the simulation
 
         LinearLayout layout = (LinearLayout)findViewById(R.id.activity_main); // Get the main activity
         for (int i = 1; i < layout.getChildCount(); i++) { // For each element in the layout, starting after the first TextView
@@ -45,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         addRunButtonListener();
-        //actorText.performClick();
     }
 
     public void addActorTextListener(final EditText actorText){
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             boolean handled = false;
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
+            if (actionId == EditorInfo.IME_ACTION_DONE) { // If user presses Enter
                 Toast.makeText(MainActivity.this, "Actor information entered", Toast.LENGTH_SHORT).show(); // Test listener with toast.
                 InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // Get the keyboard
                 mgr.hideSoftInputFromWindow(actorText.getWindowToken(), 0); // Get the keyboard
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) { // If user presses Enter
                     Toast.makeText(MainActivity.this, "Grid information entered", Toast.LENGTH_SHORT).show(); // Test listener with toast.
                     InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // Get the keyboard
                     mgr.hideSoftInputFromWindow(gridText.getWindowToken(), 0); // Hide the keyboard
@@ -90,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) { // If user presses Enter
                     Toast.makeText(MainActivity.this, "Frame information entered", Toast.LENGTH_SHORT).show(); // Test listener with toast.
                     InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // Get the keyboard
                     mgr.hideSoftInputFromWindow(frameText.getWindowToken(), 0); // Hide keyboard
@@ -108,8 +111,7 @@ public class MainActivity extends AppCompatActivity {
         runButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Test listener with toast.
-                Toast.makeText(MainActivity.this, "Running Simulation", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Running Simulation", Toast.LENGTH_SHORT).show(); // Test listener with toast.
             }
         });
     }
