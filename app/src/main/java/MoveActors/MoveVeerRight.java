@@ -4,11 +4,16 @@ package MoveActors;
  * Created by Michael on 1/31/2017.
  */
 
-public class MoveLine {
+public class MoveVeerRight {
     public int[] NewLocation; // Initialize the new location array
+    private boolean is_triangular; // Initialize whether frame is a member of triangular sequence of numbers
 
-    public int[] MoveLine(int row, int column, int dir){
-        NewLocation = new int[] {row, column}; // Put the current row and column as initial values to reduce conditions below
+    public int[] MoveVeerRight(int row, int column, int dir, int frame){
+
+        // Check whether the current frame is triangular, which requires a direction change
+        is_triangular = new checkIfTriangular().checkIfTriangular(frame);
+
+
         if(dir<2 || dir==7){ // If direction is above
             NewLocation[0]=row-1; // Subtract a row
         }
@@ -25,4 +30,6 @@ public class MoveLine {
 
         return NewLocation; // Return the new location arrayMoveLine
     }
+
+
 }
