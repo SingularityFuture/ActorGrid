@@ -7,7 +7,7 @@ package MoveActors;
  */
 
 public class Line {
-    private int[] newLocation; // Initialize the new location array
+    private int[] newLocation; // Declare the new location array
 
     public int[] moveLine(int row, int column, int dir){
         newLocation = new int[] {row, column}; // Put the current row and column as initial values to reduce conditions below
