@@ -57,23 +57,24 @@ public class MainActivity extends AppCompatActivity {
 
         actorText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
         @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        public boolean onEditorAction(TextView actorText, int actionId, KeyEvent event) {
             boolean handled = false;
             if (actionId == EditorInfo.IME_ACTION_DONE) { // If user presses Enter
                 InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // Get the keyboard
                 mgr.hideSoftInputFromWindow(actorText.getWindowToken(), 0); // Get the keyboard
-                actors.set(index,v.getText().toString()); // Replace the default with the new input data.
                 // Parse and validate here
                 try{
-                    ArrayList<String> actorResult=new ParseActorString().parseToDefinition(actors.get(index)); // Try to parse input string
+                    ArrayList<String> actorResult=new ParseActorString().parseToDefinition(actorText.getText().toString(),gridRows,gridColumns); // Try to parse input string
+                    actors.set(index,actorText.getText().toString()); // Replace the default with the new input data only after validated
                     Toast.makeText(MainActivity.this, "Actor information entered \n"+actors.get(index), Toast.LENGTH_SHORT).show(); // Test listener with toast.
+                    handled = true;
                 }
                 catch(IllegalArgumentException e){
                     Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show(); // Display error message
-                    //return handled; // Return a failure
+                    //<font color='#EE0000'>
                 }
 
-                handled = true;
+
             }
             return handled;
         }
