@@ -16,6 +16,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import Actors.ParseActorString;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button runButton; // Button that runs the simulation
@@ -58,11 +60,19 @@ public class MainActivity extends AppCompatActivity {
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             boolean handled = false;
             if (actionId == EditorInfo.IME_ACTION_DONE) { // If user presses Enter
-                Toast.makeText(MainActivity.this, "Actor information entered", Toast.LENGTH_SHORT).show(); // Test listener with toast.
                 InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // Get the keyboard
                 mgr.hideSoftInputFromWindow(actorText.getWindowToken(), 0); // Get the keyboard
                 actors.set(index,v.getText().toString()); // Replace the default with the new input data.
-                // Validate here
+                // Parse and validate here
+                try{
+                    ArrayList<String> actorResult=new ParseActorString().parseToDefinition(actors.get(index)); // Try to parse input string
+                    Toast.makeText(MainActivity.this, "Actor information entered \n"+actors.get(index), Toast.LENGTH_SHORT).show(); // Test listener with toast.
+                }
+                catch(IllegalArgumentException e){
+                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show(); // Display error message
+                    //return handled; // Return a failure
+                }
+
                 handled = true;
             }
             return handled;
