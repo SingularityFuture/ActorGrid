@@ -7,7 +7,8 @@ package MoveActors;
  */
 
 public class VeerRight {
-    private int newDirection; // Declare the new direction
+    // Declare the new direction
+    private int newDirection;
 
     public int[] moveVeerRight(int row, int column, int dir, int frame){
 

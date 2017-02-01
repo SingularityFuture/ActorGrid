@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     public int gridRows; // Number of rows on grid
     public int gridColumns; // Number of columns on grid
     public int frames; // Number of frames run in simulation
-    public List<String> actors = new ArrayList<String>(); // Create list for all actors' traits
+    public List<String> actors = new ArrayList<>(); // Create list for all actors' traits
     public int numberOfActors; // Number of actors
 
     @Override
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             View v = layout.getChildAt(i); // Get each child
             if (v instanceof EditText && i<=numberOfActors) { // If this is an EditText element and its within the actor section
                 actors.add(getResources().getStringArray(R.array.actor_array)[i-1]); // Set the initial actor traits
-                addActorTextListener((EditText) v); // Add a listener to the EditText view if the input changes
+                addActorTextListener((EditText) v, i-1); // Add a listener to the EditText view if the input changes
             }
             else if (v instanceof EditText && i>numberOfActors && i<=numberOfActors+2) { // If its in the grid row and column section,
                 addGridRowColumnListener((EditText) v); // Then add a listener for that
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         addRunButtonListener();
     }
 
-    public void addActorTextListener(final EditText actorText){
+    public void addActorTextListener(final EditText actorText, final int index){
 
         actorText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
         @Override
@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Actor information entered", Toast.LENGTH_SHORT).show(); // Test listener with toast.
                 InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // Get the keyboard
                 mgr.hideSoftInputFromWindow(actorText.getWindowToken(), 0); // Get the keyboard
-
+                actors.set(index,v.getText().toString()); // Replace the default with the new input data.
+                // Validate here
                 handled = true;
             }
             return handled;
