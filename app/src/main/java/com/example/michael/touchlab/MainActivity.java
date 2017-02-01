@@ -13,12 +13,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button runButton;
     public int gridRows;
     public int gridColumns;
-    public String[] actors;
+    public List<String> actors = new ArrayList<String>();
     public int numberOfActors;
     //public int numberOfActors=getResources().getInteger(R.integer.default_actors);
 
@@ -27,13 +30,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         numberOfActors=getResources().getInteger(R.integer.default_actors); // Set the initial # of actors
-        actors=getResources().getStringArray(R.array.actor_array); // Set the initial actor traits
 
         LinearLayout layout = (LinearLayout)findViewById(R.id.activity_main);
         for (int i = 1; i < layout.getChildCount(); i++) {
             View v = layout.getChildAt(i);
             if (v instanceof EditText && i<=numberOfActors) {
-
+                actors.add(getResources().getStringArray(R.array.actor_array)[i]); // Set the initial actor traits
                 addActorTextListener((EditText) v);
             }
             else if (v instanceof EditText && i>numberOfActors) {
