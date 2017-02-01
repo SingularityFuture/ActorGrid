@@ -8,4 +8,5 @@
     <item name="actor_5" type="id">actor_5</item>
     <item name="grid_columns" type="id">grid_columns</item>
     <item name="grid_rows" type="id">grid_rows</item>
+    <item name="frames" type="id">frames</item>
 </resources>

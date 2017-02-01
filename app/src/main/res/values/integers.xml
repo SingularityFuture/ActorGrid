@@ -3,4 +3,5 @@
     <integer name="default_rows">10</integer>
     <integer name="default_columns">10</integer>
     <integer name="default_actors">5</integer>
+    <integer name="default_frames">3</integer>
 </resources>
