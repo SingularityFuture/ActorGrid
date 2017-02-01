@@ -16,7 +16,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import Actors.ActorDefinition;
 import Actors.ParseActorString;
+import Actors.ValidActors;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     public int gridColumns; // Number of columns on grid
     public int frames; // Number of frames run in simulation
     public List<String> actors = new ArrayList<>(); // Create list for all actors' traits
+    public ArrayList<ActorDefinition> parsedActorResults; // Create list of ActorDefinition objects, each of which holds the actor traits
     public int numberOfActors; // Number of actors
 
     @Override
@@ -43,8 +46,11 @@ public class MainActivity extends AppCompatActivity {
                 actors.add(getResources().getStringArray(R.array.actor_array)[i-1]); // Set the initial actor traits
                 addActorTextListener((EditText) v, i-1); // Add a listener to the EditText view if the input changes
             }
-            else if (v instanceof EditText && i>numberOfActors && i<=numberOfActors+2) { // If its in the grid row and column section,
-                addGridRowColumnListener((EditText) v); // Then add a listener for that
+            else if (v instanceof EditText && i==numberOfActors+1) { // If its in the grid row section,
+                addGridRowListener((EditText) v); // Then add a listener for that
+            }
+            else if (v instanceof EditText && i==numberOfActors+2) { // If its in the grid column section,
+                addGridColumnListener((EditText) v); // Then add a listener for that
             }
             else if (v instanceof EditText && i==numberOfActors+3) { // If this is the frame input
                 addFrameListener((EditText) v); // Then add a listener for that
@@ -64,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
                 mgr.hideSoftInputFromWindow(actorText.getWindowToken(), 0); // Get the keyboard
                 // Parse and validate here
                 try{
-                    ArrayList<String> actorResult=new ParseActorString().parseToDefinition(actorText.getText().toString(),gridRows,gridColumns); // Try to parse input string
+                    String[] result = new ParseActorString().parseToDefinition(actorText.getText().toString(),gridRows,gridColumns); // Try to parse input string
+                    ActorDefinition actorObject = new ActorDefinition(ValidActors.valueOf(result[0]),Integer.valueOf(result[1]),Integer.valueOf(result[2]),Integer.valueOf(result[3]));
+
+                    //parsedActorResults.add(index,actorObject); // If the parsing works, add it to the list of Actor Results
                     actors.set(index,actorText.getText().toString()); // Replace the default with the new input data only after validated
                     Toast.makeText(MainActivity.this, "Actor information entered \n"+actors.get(index), Toast.LENGTH_SHORT).show(); // Test listener with toast.
                     handled = true;
@@ -81,17 +90,37 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void addGridRowColumnListener(final EditText gridText){
+    public void addGridRowListener(final EditText gridText) {
 
         gridText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_DONE) { // If user presses Enter
-                    Toast.makeText(MainActivity.this, "Grid information entered", Toast.LENGTH_SHORT).show(); // Test listener with toast.
+                    Toast.makeText(MainActivity.this, "Grid rows entered", Toast.LENGTH_SHORT).show(); // Test listener with toast.
                     InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // Get the keyboard
                     mgr.hideSoftInputFromWindow(gridText.getWindowToken(), 0); // Hide the keyboard
 
+                    gridRows = Integer.valueOf(v.getText().toString()); // Replace the default with the new input data only after validated
+                    handled = true;
+                }
+                return handled;
+            }
+        });
+    }
+
+    public void addGridColumnListener(final EditText gridText){
+
+        gridText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView gridText, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_DONE) { // If user presses Enter
+                    Toast.makeText(MainActivity.this, "Grid columns entered", Toast.LENGTH_SHORT).show(); // Test listener with toast.
+                    InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // Get the keyboard
+                    mgr.hideSoftInputFromWindow(gridText.getWindowToken(), 0); // Hide the keyboard
+
+                    gridColumns=Integer.valueOf(gridText.getText().toString()); // Replace the default with the new input data only after validated
                     handled = true;
                 }
                 return handled;
