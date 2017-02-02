@@ -39,7 +39,10 @@ public class Simulator {
                         newLocation = new RandomActor().moveRandom(gridRows,gridColumns);
                         break;
                 }
+                actor.setRow(newLocation[0]);
+                actor.setColumn(newLocation[1]);
 
+                results.add(String.valueOf(frame)+','+String.valueOf(actor.getActorType())+','+String.valueOf(newLocation[0])+','+String.valueOf(newLocation[1]));
             }
         }
         return results;

@@ -16,7 +16,7 @@ public class ActorDefinition {
     public ActorDefinition(){
     }
 
-    public void set(ValidActors actorType, int ...simParameters) { // Setter method
+    public void set(ValidActors actorType, int ...simParameters) { // Setter method for variety of parameters, with actorType first
         this.actorType = actorType; // Must at least have an actor type (minimum allowed for Random type)
         if(simParameters.length>0 ) {
             this.row = simParameters[0];
@@ -29,19 +29,27 @@ public class ActorDefinition {
         }
     }
 
+    public void setRow(int row) { // Setter for row
+        this.row = row;
+    }
+
+    public void setColumn(int column) { // Setter for column
+        this.column = column;
+    }
+
     public ValidActors getActorType() { // Get method
         return this.actorType;
-    }
+    } // Getter for actorType
 
     public int getRow() { // Get method
         return this.row;
-    }
+    } // Getter for row
 
     public int getColumn() { // Get method
         return this.column;
-    }
+    } // Getter for column
 
     public int getDir() { // Get method
         return this.dir;
-    }
+    } // Getter for direction
 }
