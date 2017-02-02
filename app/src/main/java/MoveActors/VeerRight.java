@@ -17,16 +17,9 @@ public class VeerRight {
             newDirection=dir !=7 ? dir+1 : 0; // If the current frame is a member of the triangular sequence, change direction
         }
         else{
-            if(frame!=1) {
-                newDirection = dir; // Otherwise continue in the same direction
-            }
-            else{
-                newDirection = dir + 1; // Add 1 if you are on the first real frame move
-            }
+            newDirection = dir; // Otherwise stay in the same direction
         }
 
         return new Line().moveLine(row, column, newDirection); // Return the new location arrayMoveLine
     }
-
-
 }

@@ -15,6 +15,8 @@ import static java.lang.Math.sqrt;
 public class Triangular {
     public boolean checkIfTriangular(int frame){
         // If this formula holds, then this frame is triangular.  See StackOverflow link above
-        return int.class.isInstance(sqrt(8 * (frame - 1) + 1));
+        double doubleResult = sqrt(8 * (frame - 1) + 1); // Get the double result
+        int intResult = (int) doubleResult; // Cast the square root to an int
+        return Math.pow(doubleResult,2)==Math.pow(intResult,2); // If these are equal, it's a perfect square and the number is triangular
     }
 }
