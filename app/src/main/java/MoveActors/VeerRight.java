@@ -7,8 +7,9 @@ package MoveActors;
  */
 
 public class VeerRight {
-    // Declare the new direction
-    private int newDirection;
+    private int newDirection; // Declare the new direction
+    private int[] newLocation = new int[2]; // Initialize new location
+    private int[] results = new int[3]; // Initialize new direction
 
     public int[] moveVeerRight(int row, int column, int dir, int frame){
 
@@ -20,6 +21,11 @@ public class VeerRight {
             newDirection = dir; // Otherwise stay in the same direction
         }
 
-        return new Line().moveLine(row, column, newDirection); // Return the new location arrayMoveLine
+        newLocation = new Line().moveLine(row, column, newDirection);
+        results[0] = newLocation[0]; // Store location
+        results[1] = newLocation[1];
+        results[3] = newDirection; // Store direction
+
+        return results; // Return all the results
     }
 }
