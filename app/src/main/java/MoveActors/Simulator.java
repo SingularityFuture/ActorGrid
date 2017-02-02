@@ -12,6 +12,9 @@ import Actors.ActorDefinition;
 
 public class Simulator {
     private ArrayList<String> results = new ArrayList<>(); // Declare list of simulation results
+    /***
+     *  @see <a href="http://softwareengineering.stackexchange.com/questions/286008/parameters-are-passed-by-value-but-editing-them-will-edit-the-actual-object-li">Passing in Java</a>
+     */
     private ArrayList<ActorDefinition> privateActorList = new ArrayList<>(); // Declare a local variable you can change
 
     public ArrayList<String> runSimulation(ArrayList<ActorDefinition> actorList, int gridRows, int gridColumns, int frameTotal){

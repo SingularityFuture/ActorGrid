@@ -188,12 +188,6 @@ public class MainActivity extends AppCompatActivity {
                 }*/
                 Toast.makeText(MainActivity.this, "Running Simulation", Toast.LENGTH_SHORT).show(); // Test listener with toast.
                 // Run the simulations with all the inputs and show the results!
-
-                /**
-                 *  OMG Java passes by reference for objects!  Thank you pointers, for keeping me up all last night.
-                 *  Must copy actors inside this method here!  AHHH                   *
-                 *  @see <a href="http://softwareengineering.stackexchange.com/questions/286008/parameters-are-passed-by-value-but-editing-them-will-edit-the-actual-object-li">Passing in Java</a>
-                 */
                 ArrayList<String> results = new Simulator().runSimulation(parsedActorResults,gridRows,gridColumns,frames);
 
                 TextView outputText = (TextView) findViewById(R.id.simulationOutput);
