@@ -176,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Running Simulation", Toast.LENGTH_SHORT).show(); // Test listener with toast.
                 // Run the simulations with all the inputs and show the results!
                 ArrayList<String> results = new Simulator().runSimulation(parsedActorResults,gridRows,gridColumns,frames);
+
             }
         });
     }

@@ -28,4 +28,20 @@ public class ActorDefinition {
             this.dir = simParameters[2];
         }
     }
+
+    public ValidActors getActorType() { // Get method
+        return this.actorType;
+    }
+
+    public int getRow() { // Get method
+        return this.row;
+    }
+
+    public int getColumn() { // Get method
+        return this.column;
+    }
+
+    public int getDir() { // Get method
+        return this.dir;
+    }
 }
