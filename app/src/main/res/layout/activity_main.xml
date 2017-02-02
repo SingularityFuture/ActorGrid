@@ -130,6 +130,14 @@
             android:layout_gravity="center_vertical"
             android:text="@string/layout_frames" />
     </FrameLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@id/addActor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:src="@drawable/ic_action_add_actor"
+        app:elevation="4dp"
+        />
     <Button
         android:id="@id/run_simulation"
         android:layout_width="wrap_content"
@@ -140,13 +148,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/output_of_simulation" />
-    <android.support.design.widget.FloatingActionButton
-        android:id="@id/addActor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:src="@drawable/ic_action_add_actor"
-        app:elevation="4dp"
-        />
+
 </LinearLayout>
 </ScrollView>

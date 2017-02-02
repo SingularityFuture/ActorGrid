@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 validateAndAdd((EditText) v, i-1, true); // Add the initial list to the collection of actors so it doesn't go out of bounds
                 addActorTextListener((EditText) v, i-1); // Add a listener to the EditText view if the input changes
             }
+            // TODO: Make a touch listener work so you can delete items
         }
         View rowInput = findViewById(R.id.grid_rows); // Get views of rows, columns, and frames
         View gridInput = findViewById(R.id.grid_columns);
