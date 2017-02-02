@@ -9,4 +9,5 @@
     <item name="grid_columns" type="id">grid_columns</item>
     <item name="grid_rows" type="id">grid_rows</item>
     <item name="frames" type="id">frames</item>
+    <item name="simulationOutput" type="id">simulationOutput</item>
 </resources>

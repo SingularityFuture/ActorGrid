@@ -60,40 +60,71 @@
         android:maxLines="1"
         android:imeOptions="actionDone"
         android:text="@string/default_actor5" />
-    <EditText
-        android:id="@id/grid_rows"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/number_of_rows"
-        android:inputType="text"
-        android:maxLines="1"
-        android:imeOptions="actionDone"
-        android:text="@integer/default_rows" />
-    <EditText
-        android:id="@id/grid_columns"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/number_of_columns"
-        android:inputType="text"
-        android:maxLines="1"
-        android:imeOptions="actionDone"
-        android:text="@integer/default_columns" />
-    <EditText
-        android:id="@id/frames"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/number_of_columns"
-        android:inputType="text"
-        android:maxLines="1"
-        android:imeOptions="actionDone"
-        android:text="@integer/default_frames" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@id/grid_rows"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/number_of_rows"
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionDone"
+            android:text="@integer/default_rows"
+            android:paddingLeft="70dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Rows : " />
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@id/grid_columns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/number_of_columns"
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionDone"
+            android:text="@integer/default_columns"
+            android:paddingLeft="70dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Columns : " />
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@id/frames"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/number_of_columns"
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionDone"
+            android:text="@integer/default_frames"
+            android:paddingLeft="70dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Frames : " />
+    </FrameLayout>
     <Button
         android:id="@id/run_simulation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/run_simulation" />
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@id/simulationOutput"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/output_of_simulation" />
 </LinearLayout>
