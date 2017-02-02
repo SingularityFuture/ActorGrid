@@ -28,8 +28,6 @@ public class ActorDefinition {
             this.dir = simParameters[2];
         }
     }
-
-
     // Individual setters
     public void setRow(int row) { // Setter for row
         this.row = row;
@@ -43,6 +41,7 @@ public class ActorDefinition {
         this.dir = dir;
     }
 
+    // Individual getters
     public ValidActors getActorType() { // Get method
         return this.actorType;
     } // Getter for actorType

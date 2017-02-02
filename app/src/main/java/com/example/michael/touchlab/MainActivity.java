@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
     public int frames; // Number of frames run in simulation
     public List<String> actors = new ArrayList<>(); // Create list for all actors' traits
     public int numberOfActors; // Number of actors
-    public ArrayList<ActorDefinition> parsedActorResults;
+    ActorDefinition actorObject;
+    private ArrayList<ActorDefinition> parsedActorResults; // Group of actors
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     private void validateAndAdd(TextView actorText, int index, boolean initialization) {
         String[] result = new ParseActorString().parseToDefinition(actorText.getText().toString(),gridRows,gridColumns); // Try to parse input string
         int lengthOfInput = result.length; // Store length of result.
-        ActorDefinition actorObject = new ActorDefinition();
+        actorObject = new ActorDefinition();
 
         switch (lengthOfInput){ // Based the object definition on the length of the input
             case 1:
@@ -177,10 +178,24 @@ public class MainActivity extends AppCompatActivity {
         runButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Attempt to make the run button also refresh all the objects data
+/*                LinearLayout layout = (LinearLayout)findViewById(R.id.activity_main); // Get the main activity
+                for (int i = 1; i < layout.getChildCount(); i++) { // For each element in the layout, starting after the first TextView
+                    View v = layout.getChildAt(i); // Get each child
+                    if (v instanceof EditText && i<=numberOfActors) { // If this is an EditText element and its within the actor section
+                        v.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP,KeyEvent.KEYCODE_ENTER));
+                    }
+                }*/
                 Toast.makeText(MainActivity.this, "Running Simulation", Toast.LENGTH_SHORT).show(); // Test listener with toast.
                 // Run the simulations with all the inputs and show the results!
-                ArrayList<String> results = new ArrayList<>();
-                results = new Simulator().runSimulation(parsedActorResults,gridRows,gridColumns,frames);
+
+                /**
+                 *  OMG Java passes by reference for objects!  Thank you pointers, for keeping me up all last night.
+                 *  Must copy actors inside this method here!  AHHH                   *
+                 *  @see <a href="http://softwareengineering.stackexchange.com/questions/286008/parameters-are-passed-by-value-but-editing-them-will-edit-the-actual-object-li">Passing in Java</a>
+                 */
+                ArrayList<String> results = new Simulator().runSimulation(parsedActorResults,gridRows,gridColumns,frames);
+
                 TextView outputText = (TextView) findViewById(R.id.simulationOutput);
 
                 StringBuilder builder = new StringBuilder(); // Create a string builder
