@@ -28,13 +28,14 @@ public class MainActivity extends AppCompatActivity {
     public int gridColumns; // Number of columns on grid
     public int frames; // Number of frames run in simulation
     public List<String> actors = new ArrayList<>(); // Create list for all actors' traits
-    public ArrayList<ActorDefinition> parsedActorResults = new ArrayList<>(); // Create list of ActorDefinition objects, each of which holds the actor traits
     public int numberOfActors; // Number of actors
+    public ArrayList<ActorDefinition> parsedActorResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        parsedActorResults = new ArrayList<>(); // Create list of ActorDefinition objects, each of which holds the actor traits
         numberOfActors=getResources().getInteger(R.integer.default_actors); // Set the initial # of actors
         gridRows=getResources().getInteger(R.integer.default_rows); // Set the initial # of rows in the grid
         gridColumns=getResources().getInteger(R.integer.default_columns); // Set the initial # of columns in the grid
@@ -48,16 +49,13 @@ public class MainActivity extends AppCompatActivity {
                 validateAndAdd((EditText) v, i-1, true); // Add the initial list to the collection of actors so it doesn't go out of bounds
                 addActorTextListener((EditText) v, i-1); // Add a listener to the EditText view if the input changes
             }
-            else if (v instanceof EditText && i==numberOfActors+1) { // If its in the grid row section,
-                addGridRowListener((EditText) v); // Then add a listener for that
-            }
-            else if (v instanceof EditText && i==numberOfActors+2) { // If its in the grid column section,
-                addGridColumnListener((EditText) v); // Then add a listener for that
-            }
-            else if (v instanceof EditText && i==numberOfActors+3) { // If this is the frame input
-                addFrameListener((EditText) v); // Then add a listener for that
-            }
         }
+        View rowInput = findViewById(R.id.grid_rows); // Get views of rows, columns, and frames
+        View gridInput = findViewById(R.id.grid_columns);
+        View framesInput = findViewById(R.id.frames);
+        addGridRowListener((EditText) rowInput); // Add a listener for row input
+        addGridColumnListener((EditText) gridInput); // Add a listener for grid input
+        addFrameListener((EditText) framesInput); // Add a listener for frame input
         addRunButtonListener();
     }
 
@@ -92,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         String[] result = new ParseActorString().parseToDefinition(actorText.getText().toString(),gridRows,gridColumns); // Try to parse input string
         int lengthOfInput = result.length; // Store length of result.
         ActorDefinition actorObject = new ActorDefinition();
+
         switch (lengthOfInput){ // Based the object definition on the length of the input
             case 1:
                 actorObject.setter(ValidActors.valueOf(result[0]));
@@ -180,7 +179,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "Running Simulation", Toast.LENGTH_SHORT).show(); // Test listener with toast.
                 // Run the simulations with all the inputs and show the results!
-                ArrayList<String> results = new Simulator().runSimulation(parsedActorResults,gridRows,gridColumns,frames);
+                ArrayList<String> results = new ArrayList<>();
+                results = new Simulator().runSimulation(parsedActorResults,gridRows,gridColumns,frames);
                 TextView outputText = (TextView) findViewById(R.id.simulationOutput);
 
                 StringBuilder builder = new StringBuilder(); // Create a string builder
