@@ -10,4 +10,5 @@
     <item name="grid_rows" type="id">grid_rows</item>
     <item name="frames" type="id">frames</item>
     <item name="simulationOutput" type="id">simulationOutput</item>
+    <item name="addActor" type="id">addActor</item>
 </resources>

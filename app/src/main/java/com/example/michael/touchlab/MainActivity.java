@@ -1,7 +1,10 @@
 package com.example.michael.touchlab;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         gridColumns=getResources().getInteger(R.integer.default_columns); // Set the initial # of columns in the grid
         frames=getResources().getInteger(R.integer.default_frames); // Set the initial # of frames in the simulation
 
-        LinearLayout layout = (LinearLayout)findViewById(R.id.activity_main); // Get the main activity
+        final LinearLayout layout = (LinearLayout)findViewById(R.id.activity_main); // Get the main activity
         for (int i = 1; i < layout.getChildCount(); i++) { // For each element in the layout, starting after the first TextView
             View v = layout.getChildAt(i); // Get each child
             if (v instanceof EditText && i<=numberOfActors) { // If this is an EditText element and its within the actor section
@@ -58,6 +61,32 @@ public class MainActivity extends AppCompatActivity {
         addGridColumnListener((EditText) gridInput); // Add a listener for grid input
         addFrameListener((EditText) framesInput); // Add a listener for frame input
         addRunButtonListener();
+
+        // Section for adding actors
+        FloatingActionButton addString = (FloatingActionButton) layout.findViewById(R.id.addActor); // Get the FAB
+        addString.setOnClickListener(new View.OnClickListener() { // Set up what it does on clicking
+            public void onClick(View v) {
+
+                EditText newActor = new EditText(getApplication());
+                newActor.setHint(R.string.input_actors); // Put in a hint value
+                newActor.setText(R.string.newValue); // Put in a valid value so it doesn't crash
+                newActor.setTextColor(Color.BLACK); // Set to black
+                newActor.getBackground().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN); // Set underline to black to make it stand out
+                newActor.setMaxLines(1); // Make it a one liner.
+                newActor.setImeOptions(EditorInfo.IME_ACTION_DONE); // Set action done property
+                newActor.setInputType(EditorInfo.TYPE_CLASS_TEXT); // I think this works
+                numberOfActors += 1; // Increment the number of strings counter
+                newActor.setId(View.generateViewId()); // Generate a new ID
+                newActor.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                layout.addView(newActor,numberOfActors);
+
+                actors.add(newActor.getText().toString()); // Set the actor traits
+                validateAndAdd(newActor, numberOfActors, true); // Add as initialization so it puts it at the end
+                addActorTextListener(newActor, numberOfActors-1); // Add a listener to the EditText view if the input changes
+            }
+        });
     }
 
     public void addActorTextListener(final EditText actorText, final int index){
@@ -106,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 actorObject.setter(ValidActors.valueOf(result[0]),Integer.valueOf(result[1]),Integer.valueOf(result[2]),Integer.valueOf(result[3]));
                 break;
         }
-        if(initialization){ // If this is the first time doing this on creation
+        if(initialization){ // If this is the first time doing this on creation, or if you are adding an entirely new one
             parsedActorResults.add(actorObject); // If the parsing works, add it to the list of Actor Results
         }
         else{ // Otherwise replace the element at this index
