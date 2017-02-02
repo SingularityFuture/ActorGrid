@@ -21,10 +21,11 @@ public class Simulator {
             results.add("0" + ',' + String.valueOf(actor.getActorType()) + ',' + actor.getRow() + ',' + actor.getColumn());
         }
 
-        int[] newLocation = new int[2]; // Initialize the new location array.
         //ActorDefinition actor = new ActorDefinition();
         for(int frame=2; frame<=frameTotal; frame++) { // Iterate through each frame of the list
             for (ActorDefinition actor : actorList) { // For each actor in the collection
+                int[] newLocation = new int[2]; // Initialize the new location array.
+                int[] veerResults; // Initialize results array for VeerRight and VeerLeft
                 switch (actor.getActorType()){ // Switch between the types
                     case L : // If type Line
                         newLocation = new Line().moveLine(actor.getRow(),actor.getColumn(),actor.getDir()); // Make it move in a line
@@ -35,11 +36,17 @@ public class Simulator {
                         break;
                     case VL : // If type Veer Left
                         // Make it veer counter-clockwise in a widening fashion
-                        newLocation = new VeerLeft().moveVeerLeft(actor.getRow(),actor.getColumn(),actor.getDir(),frame);
+                        veerResults = new VeerLeft().moveVeerLeft(actor.getRow(),actor.getColumn(),actor.getDir(),frame);
+                        newLocation[0] = veerResults[0]; // Set row result
+                        newLocation[1] = veerResults[1]; // Set column result
+                        actor.setDir(veerResults[2]); // Set new direction
                         break;
                     case VR : // If type Veer Right
                         // Make it veer clockwise in a widening fashion
-                        newLocation = new VeerRight().moveVeerRight(actor.getRow(),actor.getColumn(),actor.getDir(),frame);
+                        veerResults = new VeerRight().moveVeerRight(actor.getRow(),actor.getColumn(),actor.getDir(),frame);
+                        newLocation[0] = veerResults[0]; // Set row result
+                        newLocation[1] = veerResults[1]; // Set column result
+                        actor.setDir(veerResults[2]); // Set new direction
                         break;
                     case R : // If type Random
                         // Give it a random new location

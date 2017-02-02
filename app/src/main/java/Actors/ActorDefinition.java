@@ -29,12 +29,18 @@ public class ActorDefinition {
         }
     }
 
+
+    // Individual setters
     public void setRow(int row) { // Setter for row
         this.row = row;
     }
 
     public void setColumn(int column) { // Setter for column
         this.column = column;
+    }
+
+    public void setDir(int dir) {
+        this.dir = dir;
     }
 
     public ValidActors getActorType() { // Get method

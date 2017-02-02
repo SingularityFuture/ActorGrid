@@ -24,7 +24,7 @@ public class VeerRight {
         newLocation = new Line().moveLine(row, column, newDirection);
         results[0] = newLocation[0]; // Store location
         results[1] = newLocation[1];
-        results[3] = newDirection; // Store direction
+        results[2] = newDirection; // Store direction
 
         return results; // Return all the results
     }
