@@ -19,6 +19,7 @@ import java.util.List;
 import Actors.ActorDefinition;
 import Actors.ParseActorString;
 import Actors.ValidActors;
+import MoveActors.Simulator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     public int gridColumns; // Number of columns on grid
     public int frames; // Number of frames run in simulation
     public List<String> actors = new ArrayList<>(); // Create list for all actors' traits
-    public ArrayList<ActorDefinition> parsedActorResults; // Create list of ActorDefinition objects, each of which holds the actor traits
+    public ActorDefinition actorObject = new ActorDefinition(); // Create an object for each actor object
+    public ArrayList<ActorDefinition> parsedActorResults = new ArrayList<>(); // Create list of ActorDefinition objects, each of which holds the actor traits
     public int numberOfActors; // Number of actors
 
     @Override
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             View v = layout.getChildAt(i); // Get each child
             if (v instanceof EditText && i<=numberOfActors) { // If this is an EditText element and its within the actor section
                 actors.add(getResources().getStringArray(R.array.actor_array)[i-1]); // Set the initial actor traits
+                validateAndAdd((EditText) v, i-1); // Add the initial list to the collection of actors so it doesn't go out of bounds
                 addActorTextListener((EditText) v, i-1); // Add a listener to the EditText view if the input changes
             }
             else if (v instanceof EditText && i==numberOfActors+1) { // If its in the grid row section,
@@ -70,10 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 mgr.hideSoftInputFromWindow(actorText.getWindowToken(), 0); // Get the keyboard
                 // Parse and validate here
                 try{
-                    String[] result = new ParseActorString().parseToDefinition(actorText.getText().toString(),gridRows,gridColumns); // Try to parse input string
-                    ActorDefinition actorObject = new ActorDefinition(ValidActors.valueOf(result[0]),Integer.valueOf(result[1]),Integer.valueOf(result[2]),Integer.valueOf(result[3]));
-
-                    //parsedActorResults.add(index,actorObject); // If the parsing works, add it to the list of Actor Results
+                    validateAndAdd(actorText, index);
                     actors.set(index,actorText.getText().toString()); // Replace the default with the new input data only after validated
                     Toast.makeText(MainActivity.this, "Actor information entered \n"+actors.get(index), Toast.LENGTH_SHORT).show(); // Test listener with toast.
                     handled = true;
@@ -82,12 +82,32 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show(); // Display error message
                     //<font color='#EE0000'>
                 }
-
-
             }
             return handled;
         }
         });
+    }
+
+    // Extract method to make it reusable so actorObject doesn't go out of bounds
+    private void validateAndAdd(TextView actorText, int index) {
+        String[] result = new ParseActorString().parseToDefinition(actorText.getText().toString(),gridRows,gridColumns); // Try to parse input string
+        int lengthOfInput = result.length; // Store length of result.
+        switch (lengthOfInput){ // Based the object definition on the length of the input
+            case 1:
+                actorObject.set(ValidActors.valueOf(result[0]));
+                break;
+            case 2:
+                actorObject.set(ValidActors.valueOf(result[0]),Integer.valueOf(result[1]));
+                break;
+            case 3:
+                actorObject.set(ValidActors.valueOf(result[0]),Integer.valueOf(result[1]),Integer.valueOf(result[2]));
+                break;
+            case 4:
+                actorObject.set(ValidActors.valueOf(result[0]),Integer.valueOf(result[1]),Integer.valueOf(result[2]),Integer.valueOf(result[3]));
+                break;
+        }
+
+        parsedActorResults.add(index,actorObject); // If the parsing works, add it to the list of Actor Results
     }
 
     public void addGridRowListener(final EditText gridText) {
@@ -101,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                     InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // Get the keyboard
                     mgr.hideSoftInputFromWindow(gridText.getWindowToken(), 0); // Hide the keyboard
 
-                    gridRows = Integer.valueOf(v.getText().toString()); // Replace the default with the new input data only after validated
+                    gridRows = Integer.valueOf(v.getText().toString()); // Replace the default with the new input data
                     handled = true;
                 }
                 return handled;
@@ -120,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // Get the keyboard
                     mgr.hideSoftInputFromWindow(gridText.getWindowToken(), 0); // Hide the keyboard
 
-                    gridColumns=Integer.valueOf(gridText.getText().toString()); // Replace the default with the new input data only after validated
+                    gridColumns=Integer.valueOf(gridText.getText().toString()); // Replace the default with the new input data
                     handled = true;
                 }
                 return handled;
@@ -138,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Frame information entered", Toast.LENGTH_SHORT).show(); // Test listener with toast.
                     InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // Get the keyboard
                     mgr.hideSoftInputFromWindow(frameText.getWindowToken(), 0); // Hide keyboard
+                    frames=Integer.valueOf(frameText.getText().toString()); // Replace the default with the new input data
 
                     handled = true;
                 }
@@ -153,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "Running Simulation", Toast.LENGTH_SHORT).show(); // Test listener with toast.
+                // Run the simulations with all the inputs and show the results!
+                ArrayList<String> results = new Simulator().runSimulation(parsedActorResults,gridRows,gridColumns,frames);
             }
         });
     }

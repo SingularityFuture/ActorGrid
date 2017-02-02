@@ -13,7 +13,10 @@ public class ActorDefinition {
     private int column; // Initial column position
     private int dir; // Initial direction
 
-    public ActorDefinition(ValidActors actorType, int ...simParameters) {
+    public ActorDefinition(){
+    }
+
+    public void set(ValidActors actorType, int ...simParameters) { // Setter method
         this.actorType = actorType; // Must at least have an actor type (minimum allowed for Random type)
         if(simParameters.length>0 ) {
             this.row = simParameters[0];
