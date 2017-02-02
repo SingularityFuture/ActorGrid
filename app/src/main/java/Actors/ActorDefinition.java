@@ -8,7 +8,7 @@ package Actors;
 
 public class ActorDefinition {
 
-    ValidActors actorType; // Defines the behavior of the actor
+    private ValidActors actorType; // Defines the behavior of the actor
     private int row; // Initial row position
     private int column; // Initial column position
     private int dir; // Initial direction
@@ -16,7 +16,7 @@ public class ActorDefinition {
     public ActorDefinition(){
     }
 
-    public void set(ValidActors actorType, int ...simParameters) { // Setter method for variety of parameters, with actorType first
+    public void setter(ValidActors actorType, int ...simParameters) { // Setter method for variety of parameters, with actorType first
         this.actorType = actorType; // Must at least have an actor type (minimum allowed for Random type)
         if(simParameters.length>0 ) {
             this.row = simParameters[0];

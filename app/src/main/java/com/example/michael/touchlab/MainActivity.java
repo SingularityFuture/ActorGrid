@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     public int gridColumns; // Number of columns on grid
     public int frames; // Number of frames run in simulation
     public List<String> actors = new ArrayList<>(); // Create list for all actors' traits
-    public ActorDefinition actorObject = new ActorDefinition(); // Create an object for each actor object
     public ArrayList<ActorDefinition> parsedActorResults = new ArrayList<>(); // Create list of ActorDefinition objects, each of which holds the actor traits
     public int numberOfActors; // Number of actors
 
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             View v = layout.getChildAt(i); // Get each child
             if (v instanceof EditText && i<=numberOfActors) { // If this is an EditText element and its within the actor section
                 actors.add(getResources().getStringArray(R.array.actor_array)[i-1]); // Set the initial actor traits
-                validateAndAdd((EditText) v, i-1); // Add the initial list to the collection of actors so it doesn't go out of bounds
+                validateAndAdd((EditText) v, i-1, true); // Add the initial list to the collection of actors so it doesn't go out of bounds
                 addActorTextListener((EditText) v, i-1); // Add a listener to the EditText view if the input changes
             }
             else if (v instanceof EditText && i==numberOfActors+1) { // If its in the grid row section,
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 mgr.hideSoftInputFromWindow(actorText.getWindowToken(), 0); // Get the keyboard
                 // Parse and validate here
                 try{
-                    validateAndAdd(actorText, index);
+                    validateAndAdd(actorText, index, false);
                     actors.set(index,actorText.getText().toString()); // Replace the default with the new input data only after validated
                     Toast.makeText(MainActivity.this, "Actor information entered \n"+actors.get(index), Toast.LENGTH_SHORT).show(); // Test listener with toast.
                     handled = true;
@@ -89,25 +88,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Extract method to make it reusable so actorObject doesn't go out of bounds
-    private void validateAndAdd(TextView actorText, int index) {
+    private void validateAndAdd(TextView actorText, int index, boolean initialization) {
         String[] result = new ParseActorString().parseToDefinition(actorText.getText().toString(),gridRows,gridColumns); // Try to parse input string
         int lengthOfInput = result.length; // Store length of result.
+        ActorDefinition actorObject = new ActorDefinition();
         switch (lengthOfInput){ // Based the object definition on the length of the input
             case 1:
-                actorObject.set(ValidActors.valueOf(result[0]));
+                actorObject.setter(ValidActors.valueOf(result[0]));
                 break;
             case 2:
-                actorObject.set(ValidActors.valueOf(result[0]),Integer.valueOf(result[1]));
+                actorObject.setter(ValidActors.valueOf(result[0]),Integer.valueOf(result[1]));
                 break;
             case 3:
-                actorObject.set(ValidActors.valueOf(result[0]),Integer.valueOf(result[1]),Integer.valueOf(result[2]));
+                actorObject.setter(ValidActors.valueOf(result[0]),Integer.valueOf(result[1]),Integer.valueOf(result[2]));
                 break;
             case 4:
-                actorObject.set(ValidActors.valueOf(result[0]),Integer.valueOf(result[1]),Integer.valueOf(result[2]),Integer.valueOf(result[3]));
+                actorObject.setter(ValidActors.valueOf(result[0]),Integer.valueOf(result[1]),Integer.valueOf(result[2]),Integer.valueOf(result[3]));
                 break;
         }
+        if(initialization){ // If this is the first time doing this on creation
+            parsedActorResults.add(actorObject); // If the parsing works, add it to the list of Actor Results
+        }
+        else{ // Otherwise replace the element at this index
+            parsedActorResults.set(index,actorObject); // If the parsing works, add it to the list of Actor Results
+        }
 
-        parsedActorResults.add(index,actorObject); // If the parsing works, add it to the list of Actor Results
     }
 
     public void addGridRowListener(final EditText gridText) {

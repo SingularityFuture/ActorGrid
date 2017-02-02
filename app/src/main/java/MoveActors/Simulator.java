@@ -11,11 +11,18 @@ import Actors.ActorDefinition;
  */
 
 public class Simulator {
-    private ArrayList<String> results; // Declare list of simulation results
+    private ArrayList<String> results = new ArrayList<>(); // Declare list of simulation results
 
     public ArrayList<String> runSimulation(ArrayList<ActorDefinition> actorList, int gridRows, int gridColumns, int frameTotal){
 
+        // Start off the 0 "first" frame with the initial locations
+        for (ActorDefinition actor : actorList) { // For each actor in the collection
+            // Add the initial locations to frame 0 in results!
+            results.add("0" + ',' + String.valueOf(actor.getActorType()) + ',' + actor.getRow() + ',' + actor.getColumn());
+        }
+
         int[] newLocation = new int[2]; // Initialize the new location array.
+        //ActorDefinition actor = new ActorDefinition();
         for(int frame=2; frame<=frameTotal; frame++) { // Iterate through each frame of the list
             for (ActorDefinition actor : actorList) { // For each actor in the collection
                 switch (actor.getActorType()){ // Switch between the types
@@ -39,10 +46,11 @@ public class Simulator {
                         newLocation = new RandomActor().moveRandom(gridRows,gridColumns);
                         break;
                 }
-                actor.setRow(newLocation[0]);
-                actor.setColumn(newLocation[1]);
+                actor.setRow(newLocation[0]); // Set the new row
+                actor.setColumn(newLocation[1]); // Set the new column
 
-                results.add(String.valueOf(frame)+','+String.valueOf(actor.getActorType())+','+String.valueOf(newLocation[0])+','+String.valueOf(newLocation[1]));
+                // Add the current results to the list of strings in results!
+                results.add(String.valueOf(frame-1)+','+String.valueOf(actor.getActorType())+','+String.valueOf(newLocation[0])+','+String.valueOf(newLocation[1]));
             }
         }
         return results;

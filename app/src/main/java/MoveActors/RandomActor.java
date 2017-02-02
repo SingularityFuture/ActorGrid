@@ -9,7 +9,7 @@ import java.util.Random;
  */
 
 public class RandomActor {
-    public int[] RandomLocation; // Declare the new location array
+    int[] RandomLocation = new int[2]; // Declare the new location array
 
     public int[] moveRandom(int gridRows, int gridColumns){
         Random rand = new Random(); // Create a new random number
