@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addRunButtonListener(){
-        runButton = (Button) findViewById(R.id.run_simulation);
+        runButton = (Button) findViewById(R.id.run_simulation); // Find the run button
 
         runButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,12 +183,12 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<String> results = new Simulator().runSimulation(parsedActorResults,gridRows,gridColumns,frames);
                 TextView outputText = (TextView) findViewById(R.id.simulationOutput);
 
-                StringBuilder builder = new StringBuilder();
-                for (String s: results) {
-                    builder.append(s);
-                    builder.append("\n");
+                StringBuilder builder = new StringBuilder(); // Create a string builder
+                for (String s: results) { // For each string in results
+                    builder.append(s); // Append it to the builder
+                    builder.append("\n"); // And put a carriage return at the end of the line
                 }
-                outputText.setText(builder.toString());
+                outputText.setText(builder.toString()); // Set results to the final output textview
             }
         });
     }

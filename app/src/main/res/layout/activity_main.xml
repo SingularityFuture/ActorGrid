@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
@@ -72,12 +76,14 @@
             android:maxLines="1"
             android:imeOptions="actionDone"
             android:text="@integer/default_rows"
-            android:paddingLeft="70dp"/>
+            android:paddingLeft="70dp"
+            android:paddingRight="70dp"
+            android:paddingStart="70dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Rows : " />
+            android:text="@string/layout_rows" />
     </FrameLayout>
     <FrameLayout
         android:layout_width="match_parent"
@@ -91,12 +97,14 @@
             android:maxLines="1"
             android:imeOptions="actionDone"
             android:text="@integer/default_columns"
-            android:paddingLeft="70dp"/>
+            android:paddingLeft="70dp"
+            android:paddingRight="70dp"
+            android:paddingStart="70dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Columns : " />
+            android:text="@string/layout_columns" />
     </FrameLayout>
     <FrameLayout
         android:layout_width="match_parent"
@@ -110,12 +118,14 @@
             android:maxLines="1"
             android:imeOptions="actionDone"
             android:text="@integer/default_frames"
-            android:paddingLeft="70dp" />
+            android:paddingLeft="70dp"
+            android:paddingRight="70dp"
+            android:paddingStart="70dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Frames : " />
+            android:text="@string/layout_frames" />
     </FrameLayout>
     <Button
         android:id="@id/run_simulation"
@@ -128,3 +138,4 @@
         android:layout_height="wrap_content"
         android:text="@string/output_of_simulation" />
 </LinearLayout>
+</ScrollView>

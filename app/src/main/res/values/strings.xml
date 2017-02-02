@@ -18,4 +18,7 @@
     <string name="number_of_columns"># of columns</string>
     <string name="run_simulation">Run Simulation</string>
     <string name="output_of_simulation">Output of Simulation</string>
+    <string name="layout_rows">Rows :</string>
+    <string name="layout_columns">Columns :</string>
+    <string name="layout_frames">Frames :</string>
 </resources>
